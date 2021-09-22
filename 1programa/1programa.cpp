@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+//#include<math.h>
+//#include<cmath>
 
 using std::cin;
 using std::cout;
@@ -16,10 +18,11 @@ using std::setw;
 using std::left;
 using std::vector;
 using std::sort;
+//using std::isnan;
 
 struct studentas {
     string vardas, pavarde;
-    float namu_darbai[10]{};
+    float namu_darbai[100]{};
     float egzaminas;
     float galutinis_pazymys;
     double mediana;
@@ -31,9 +34,12 @@ void printas2(studentas& ki);
 
 int main()
 {
+    cout << "Iveskite studentu skaiciu: " << endl;
+    int stud;
+    cin >> stud;
     char raide;
-    studentas studentai[10];
-    for (int i = 0; i < 3; i++)
+    studentas studentai[100];
+    for (int i = 0; i < stud; i++)
         pild(studentai[i]);
     cout << "Iveskite, ar galutini pazymi norite matyti isvesta pagal namu darbu pazymiu vidurki, ar pagal ju mediana. Jei vidurkis, rasykite v, jei mediana, rasykite m." << endl;
     cin >> raide;
@@ -52,7 +58,7 @@ int main()
         cout << "Vardas" << "\t" << setw(15) << "Pavarde" << "\t" << setw(36) << "Galutinis rezultatas pagal mediana" << endl;
     cout << "-------------------------------------------------------------" << endl;
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < stud; i++)
         printas1(studentai[i]);
 }
 
@@ -60,33 +66,37 @@ void pild(studentas& kint) {
     int n;
     vector <int> nd;
     int vidurinis;
+    int skaitiklis = 0;
+    float vid = 0;
+    float sum = 0;
     cout << "Iveskite studento varda ir pavarde "; cin >> kint.vardas >> kint.pavarde;
-    cout << "Kiek namu darbu bus? (1-10) "; cin >> n;
+    cout << "Iveskite pazymius (norint nutraukti, spauskite 0): " << endl;
 
-    if (n < 1 || n > 10) {
-        cout << "Ivestas neteisingas skaicius, bandykite dar karta ir iveskite skaicius 1-10.";
-        exit(EXIT_SUCCESS);
-    }
-    else
-        cout << "Iveskite pazymius: " << endl;
-    float sum = 0, vid = 0;
-    for (int i = 0; i < n; i++) {
-        cin >> kint.namu_darbai[i];
-        if ((kint.namu_darbai[i] < 1) || (kint.namu_darbai[i] > 10)) {
+    while (cin >> n) {
+
+        if (n == 0) {
+            break;
+        }
+
+        else if ((n < 1) || (n > 10))
+        {
             cout << "Ivestas neteisingas pazymys, bandykite dar karta ir iveskite skaicius 1-10.";
             exit(EXIT_SUCCESS);
         }
+
         else {
-            sum += kint.namu_darbai[i];
-            nd.push_back(kint.namu_darbai[i]);
+            skaitiklis += 1;
+            sum += n;
+            nd.push_back(n);
             sort(nd.begin(), nd.end());
             vidurinis = size(nd) / 2;
             kint.mediana = size(nd) % 2 == 0 ? (nd[vidurinis - 1] + nd[vidurinis]) / 2.0 : nd[vidurinis];
-
         }
     }
-    vid = sum / n;
-    cout << "Iveskite egzamino pazymi: "; cin >> kint.egzaminas;
+    vid = sum / skaitiklis;
+
+    cout << "Iveskite egzamino pazymi: ";
+    cin >> kint.egzaminas;
     if (kint.egzaminas < 1 || kint.egzaminas > 10) {
         cout << "Ivestas neteisingas pazymys, bandykite dar karta ir iveskite skaicius 1-10.";
         exit(EXIT_SUCCESS);
@@ -95,6 +105,7 @@ void pild(studentas& kint) {
         kint.galutinis_pazymys = vid * 0.4 + 0.6 * kint.egzaminas;
 
 }
+
 
 void printas1(studentas& kin) {
     cout << setw(15) << left << kin.vardas << " " << setw(15) << left << kin.pavarde << " " << "\t" << setw(3) << left << setprecision(3) << kin.galutinis_pazymys << endl;

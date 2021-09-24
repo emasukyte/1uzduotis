@@ -1,0 +1,4 @@
+Vardas	Pavarde	ND1	ND2	ND3	ND4	ND5	Egzaminas
+Ona	Onaite	5	7	8	2	5	7
+Eva	Evaite	8	9	8	7	5	8
+Ela	Elaite	5	7	6	5	4	2

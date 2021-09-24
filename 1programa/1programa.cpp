@@ -20,6 +20,7 @@ using std::left;
 using std::vector;
 using std::sort;
 using std::ifstream;
+using std::getline;
 
 
 struct studentas {
@@ -42,15 +43,15 @@ void printas1(studentas& kin);
 void printas2(studentas& ki);
 void pazymiu_generatorius(studentas& k);
 void mediana(studentas& l);
-//void nuskaitymas(studentas& j);
 void pazymiu_ivedimas(studentas& kk);
 void egzamino_generatorius(studentas& ll);
 void egzamino_ivedimas(studentas& kkk);
 
 int main()
 {
-    int stud;
+    int stud, duom;
     char raide, x, y, z, w;
+    string eilute;
     studentas studentai[100];
 
     cout << "Ar norite duomenis ivesti patys, ar nuskaityti juos is failo? Jeigu patys, spauskite p, jeigu is failo, spauskite f." << endl;
@@ -124,11 +125,43 @@ int main()
                     egzamino_ivedimas(studentai[i]);
                 }
             }
+
+            cout << "Iveskite, ar galutini pazymi norite matyti isvesta pagal namu darbu pazymiu vidurki, ar pagal ju mediana. Jei vidurkis, rasykite v, jei mediana, rasykite m." << endl;
+            cin >> raide;
+            if (raide != 'v' && raide != 'V' && raide != 'm' && raide != 'M') {
+                cout << "Simbolis netinkamas, turite ivesti v arba m simboli." << endl;
+                exit(EXIT_SUCCESS);
+            }
+
+            else if (raide == 'v' || raide == 'V') {
+                cout << "Vardas" << "\t" << setw(15) << "Pavarde" << "\t" << setw(50) << "Galutinis rezultatas pagal vidurki" << endl;
+                cout << "---------------------------------------------------------------------------------" << endl;
+                for (int i = 0; i < stud; i++)
+                    printas1(studentai[i]);
+            }
+
+
+            else if (raide == 'm' || raide == 'M') {
+                cout << "Vardas" << "\t" << setw(15) << "Pavarde" << "\t" << setw(50) << "Galutinis rezultatas pagal mediana" << endl;
+                cout << "---------------------------------------------------------------------------------" << endl;
+                for (int i = 0; i < stud; i++)
+                    printas2(studentai[i]);
+            }
         }
     }
-    //else if (ivedimas == 'f' || ivedimas == 'F') {
-      //nuskaitymas()
-    //}
+    else if (z == 'f' || z == 'F') {
+        ifstream file_("kursiokai.txt");
+        if (file_.is_open())
+        {
+            while (getline(file_, eilute))
+            {
+                cout << eilute << '\n';
+            }
+            file_.close();
+        }
+        else
+            cout << "Failo atidaryti nepavyko. Bandykite dar karta." << endl;
+    }
 
     cout << "Iveskite, ar galutini pazymi norite matyti isvesta pagal namu darbu pazymiu vidurki, ar pagal ju mediana. Jei vidurkis, rasykite v, jei mediana, rasykite m." << endl;
     cin >> raide;
@@ -195,9 +228,6 @@ void printas2(studentas& ki) {
     ki.galutinis_pazymys = ki.mediana * 0.4 + 0.6 * ki.egzaminas;
     cout << setw(15) << left << ki.vardas << " " << setw(15) << left << ki.pavarde << " " << "\t" << setw(3) << left << setprecision(3) << ki.galutinis_pazymys << endl;
 }
-//void nuskaitymas(studentas& j) {
-    //ifstream inFile;
-//}
 
 void pazymiu_ivedimas(studentas& kk) {
     while (cin >> kk.paz) {
@@ -244,5 +274,11 @@ void egzamino_ivedimas(studentas& kkk) {
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+
+
+
+
+
 
 

@@ -12,3 +12,8 @@ Pridėjau galimybę programos vartotojui pasirinkti, ar skaičius jis nori įves
 
 Realizuoti dalies, kur yra dirbama su nuskaitytais duomenimis taip pat nepayko.
 
+EDIT:
+Pavyko sutvarkyti dalį, kur duomenys yra nuskaitomi iš txt failo.
+
+Taip pat void funkcijas, struktūrą "studentas" perkėliau į antraštinius failus bei kai kuriuos if'us pakeičiau exceptionais.
+

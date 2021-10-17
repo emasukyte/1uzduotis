@@ -55,6 +55,8 @@ int main()
     }
     else if (raide == 'v' || raide == 'V') {
         out_data << "Vardas" << "\t" << setw(14) << "Pavarde" << "\t" << setw(37) << "Galutinis pazymys pagal vidurki" << endl;
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
         for (int i = 0; i < stud; i++) {
             out_data << "Vardas" << left << setw(9) << to_string(i + 1) << "Pavarde" << left << setw(8) << to_string(i + 1);
             for (int j = 0; j < sk; j++)
@@ -72,9 +74,14 @@ int main()
             else
                 out_data << left << "kietiakas" << endl;
         }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        cout << to_string(stud) + " studentu failo rusiavimas i dvi grupes uztruko : " << diff.count() << " s\n";
     }
     else if (raide == 'm' || raide == 'M') {
         out_data << "Vardas" << "\t" << setw(14) << "Pavarde" << "\t" << setw(37) << "Galutinis pazymys pagal mediana" << endl;
+        auto start = std::chrono::high_resolution_clock::now();
+        auto st = start;
         for (int i = 0; i < stud; i++) {
             out_data << "Vardas" << left << setw(9) << to_string(i + 1) << "Pavarde" << left << setw(8) << to_string(i + 1);
             for (int j = 0; j < sk; j++)
@@ -95,8 +102,10 @@ int main()
                 out_data << left << "vargsiukas" << endl;
             else
                 out_data << left << "kietiakas" << endl;
-
         }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        cout << to_string(stud) + " studentu failo rusiavimas i dvi grupes uztruko : " << diff.count() << " s\n";
     }
 }
 

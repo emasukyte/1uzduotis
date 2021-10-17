@@ -36,14 +36,17 @@ int main()
     vector<int>nd;
     double vid;
     char raide, x, y, z, w;
-    string pavadinimas;
+    string pavadinimas, eilute;
     studentas studentai[100];
     srand(time(NULL));
 
     cout << "Iveskite studentu skaiciu (1000, 10000, 100000, 1000000, 10000000): " << endl;
     cin >> stud;
     pavadinimas = "Studentai_" + to_string(stud) + ".txt";
+    auto start1 = std::chrono::high_resolution_clock::now();
+    auto st1 = start1;
     ofstream out_data(pavadinimas);
+    ifstream file_;
 
     cout << "Iveskite, kiek namu darbu reikia sugeneruoti: " << endl;
     cin >> sk;
@@ -66,6 +69,26 @@ int main()
         egzaminas = rand() % 10 + 1;
         out_data << "\t" << egzaminas << endl;
     }
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff1 = end1 - start1;
+    cout << endl;
+    cout << to_string(stud) + " studentu failo kurimas uztruko: " << diff1.count() << " s\n";
+
+    file_.open(pavadinimas);
+    if (!file_) {
+        cout << "Failo atidaryti nepavyko. Bandykite dar karta." << endl;
+        exit(1);
+    }
+    auto start2 = std::chrono::high_resolution_clock::now();
+    auto st2 = start2;
+    while (!file_.eof())
+    {
+        getline(file_, eilute);
+    }
+    auto end2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff2 = end2 - start2;
+    cout << endl;
+    cout << to_string(stud) + " studentu failo nuskaitymas uztruko: " << diff2.count() << " s\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
